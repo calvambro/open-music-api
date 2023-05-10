@@ -1,5 +1,7 @@
 /* eslint-disable camelcase */
 
+exports.shorthands = undefined;
+
 exports.up = (pgm) => {
   pgm.createTable('playlist_song_activities', {
     id: {
@@ -9,37 +11,30 @@ exports.up = (pgm) => {
     playlist_id: {
       type: 'VARCHAR(50)',
       notNull: true,
+      onDelete: 'cascade',
     },
     song_id: {
       type: 'VARCHAR(50)',
       notNull: true,
+      onDelete: 'cascade',
     },
     user_id: {
       type: 'VARCHAR(50)',
       notNull: true,
+      onDelete: 'cascade',
     },
     action: {
       type: 'VARCHAR(50)',
       notNull: true,
     },
     time: {
-      type: 'TIMESTAMP',
+      type: 'timestamp',
       notNull: true,
+      default: pgm.func('current_timestamp'),
     },
   });
-
-  pgm.addConstraint(
-    'playlist_song_activities',
-    'fk_playlist_song_activities.playlist_id_playlists.id',
-    'FOREIGN KEY(playlist_id) REFERENCES playlists(id) ON DELETE CASCADE',
-  );
 };
 
 exports.down = (pgm) => {
-  pgm.dropConstraint(
-    'playlist_song_activities',
-    'fk_playlist_song_activities.playlist_id_playlists.id',
-  );
-
   pgm.dropTable('playlist_song_activities');
 };

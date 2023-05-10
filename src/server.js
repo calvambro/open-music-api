@@ -53,14 +53,12 @@ const init = async () => {
     },
   });
 
-  // registrasi plugin eksternal
   await server.register([
     {
       plugin: Jwt,
     },
   ]);
 
-  // mendefinisikan strategy autentikasi jwt
   server.auth.strategy('openmusicapp_jwt', 'jwt', {
     keys: process.env.ACCESS_TOKEN_KEY,
     verify: {
