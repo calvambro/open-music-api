@@ -12,6 +12,9 @@ exports.up = (pgm) => {
       type: 'INT',
       notNull: true,
     },
+    cover_url: {
+      type: 'VARCHAR(255)',
+    },
   });
 
   pgm.createTable('songs', {
